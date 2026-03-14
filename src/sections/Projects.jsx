@@ -1,142 +1,136 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { motion } from "framer-motion";
 import photo1 from "../assets/photo1.png";
-import img1 from "../assets/img1.png";
 import photo2 from "../assets/photo2.png";
-import img2 from "../assets/img2.jpg";
 import photo3 from "../assets/photo3.png";
-import img3 from "../assets/img3.png";
-import { motion, AnimatePresence, transform, useMotionValueEvent, useScroll } from "framer-motion";
 
-const useIsMobile = (query = "(max-width: 639px)") => {
-  const [isMobile, setIsMobile] = useState(
-    typeof window !== "undefined" && window.matchMedia(query).matches,
-  );
+export default function Projects() {
 
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mql = window.matchMedia(query);
-    const handler = (e) => setIsMobile(e.matches);
-
-    mql.addEventListener("change", handler);
-    setIsMobile(mql.matches);
-    return () => mql.removeEventListener("change", handler);
-  }, [query]);
-
-  return isMobile;
-};
-
-export default function Project() {
-  const isMobile = useIsMobile();
-  const sceneRef = useRef(null);
-
-  const projects = useMemo(
-    () => [
-      {
-        title: "ByteBaazar",
-        link: "https://github.com/nitiks3113",
-        bgColor: "#0d4d3d",
-        image: isMobile ? img1 : photo1,
-      },
-      {
-        title: "Student Management System",
-        link: "https://gamilyapp.com/",
-        bgColor: "#3884d3",
-        image: isMobile ? img2 : photo2,
-      },
-      {
-        title: "Weather App",
-        link: "https://www.eathungrytiger.com/",
-        bgColor: "#dc9317",
-        image: isMobile ? img3 : photo3,
-      },
-    ],
-    [isMobile],
-  );
-
-  const { scrollYProgress } = useScroll({
-    target: sceneRef,
-    offset: ["start start", "end end"],
-  });
-  const thresholds = projects.map((_, i) => (i + 1) / projects.length);
-
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useMotionValueEvent(scrollYProgress, "change", (v) => {
-    const idx = thresholds.findIndex((t) => v <= t);
-    setActiveIndex(idx === -1 ? thresholds.length - 1 : idx);
-  });
-
-  const activeProject = projects[activeIndex];
+  const projects = [
+    {
+      title: "ByteBaazar",
+      description:
+        "A full stack e-commerce platform built using React, Java Spring Boot and MySQL. Includes product catalog, authentication, cart system and admin dashboard.",
+      tech: ["React", "Spring Boot", "MySQL", "REST API"],
+      image: photo1,
+      github: "https://github.com/nitiks3113",
+      live: "#",
+    },
+    {
+      title: "Student Management System",
+      description:
+        "A Java based application to manage student records including admission, course enrollment, and result tracking with database integration.",
+      tech: ["Java", "JDBC", "MySQL"],
+      image: photo2,
+      github: "https://github.com/nitiks3113/student_Management_System",
+      live: "https://github.com/nitiks3113/student_Management_System",
+    },
+    {
+      title: "Weather App",
+      description:
+        "A responsive weather application that fetches real-time weather data from external APIs and displays forecasts for different cities.",
+      tech: ["JavaScript", "API", "CSS"],
+      image: photo3,
+      github: "https://github.com/nitiks3113/weather-app",
+      live: "https://nitiks3113.github.io/weather-app/",
+    },
+  ];
 
   return (
     <section
       id="projects"
-      ref={sceneRef}
-      className="relative text-white"
-      style={{
-        height: `${100 * projects.length}vh`,
-        backgroundColor: activeProject.bgColor,
-        transition: "background-color 400ms ease",
-      }}
+      className="w-full bg-black text-white py-24 px-6 md:px-20"
     >
 
-      <div
-      className="sticky top-0 h-screen flex flex-col items-center justify-center">
-        <h2 className={`text-3xl font-semibold z-10 text-center ${isMobile ? "mt-4" : "mt-8"}`}>
-          My Work
-        </h2>
+      {/* Section Title */}
 
-        <div className={`relative w-full flex-1 flex items-center justify-center ${isMobile ? "-mt-4" : ""}`}>
-          {projects.map((project, idx) => (
-            <div key={project.title}
-            className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 duration-500 ${activeIndex === idx ? "opacity-100 z-20" : "opacity-0 z-0 sm:z-10"}`}
-            style={{width: "85%", maxWidth: "1200px"}}>
-              <AnimatePresence mode="wait">
-                {activeIndex === idx && (
-                  <motion.h3 key={project.title}
-                  initial={{opacity: 0, y: -30}}
-                  animate = {{opacity: 1, y: 0}}
-                  exit = {{opacity: 0, y: 30}}
-                  transition={{duration: 0.5, ease : "easeOut"}}
-                  className={`block text-center text-[clamp(2rem,6vw,5rem)] text-white/95 sm:absolute sm:-top-20 sm:left-[35%] lg:left-[-5%] sm:mb-0 italic font-semibold ${isMobile ? "-mt-24" : ""}`}
-                  style={{
-                    zIndex: 5, 
-                    textAlign: isMobile ? "center" : "left",
+      <motion.h2
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="text-4xl md:text-5xl font-bold mb-16 text-center"
+      >
+        Projects
+      </motion.h2>
 
-                  }}>
-                    {project.title}
-                  </motion.h3>
-                )}
-              </AnimatePresence>
+      {/* Project Grid */}
 
-                <div className={`relative w-full overflow-hidden bg-black/20 shadow-2xl md:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.7)] ${isMobile ? "mb-6 rounded-lg" : "mb:10 sm:mb-12 rounded-xl"} h-[62vh] sm:h-[66vh]`}
-                style={{zIndex:10, transition: "box-shadow 250ms ease"}}>
-                  <img src={project.image} alt={project.title} 
-                  className="w-full h-full object-cover drop-shadow-xl md:drop-shadow-2xl"
-                  style={{
-                    position: "relative", 
-                    zIndex: 10,
-                    filter: "drop-shadow(0, 16px 40px rgba(0,0,0,0.65)",
-                    transition: "filter 200ms ease",
-                  }} loading="lazy"/>
-                  <div className="pointer-events-none absolute inset-0"
-                  style={{
-                    zIndex: 11, 
-                    background: "linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0) 40%)"
-                  }}></div>
-                </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+
+        {projects.map((project, index) => (
+
+          <motion.div
+            key={project.title}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            className="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all"
+          >
+
+            {/* Project Image */}
+
+            <div className="h-56 overflow-hidden">
+              <img
+                src={project.image}
+                alt={project.title}
+                className="w-full h-full object-cover hover:scale-110 transition duration-500"
+              />
+            </div>
+
+            {/* Project Content */}
+
+            <div className="p-6">
+
+              <h3 className="text-xl font-semibold mb-3">
+                {project.title}
+              </h3>
+
+              <p className="text-gray-400 text-sm mb-4">
+                {project.description}
+              </p>
+
+              {/* Tech Stack */}
+
+              <div className="flex flex-wrap gap-2 mb-6">
+                {project.tech.map((tech) => (
+                  <span
+                    key={tech}
+                    className="text-xs bg-gray-800 px-2 py-1 rounded"
+                  >
+                    {tech}
+                  </span>
+                ))}
+              </div>
+
+              {/* Buttons */}
+
+              <div className="flex gap-4">
+
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 text-sm bg-white text-black rounded hover:bg-gray-200 transition"
+                >
+                  GitHub
+                </a>
+
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-4 py-2 text-sm border border-white rounded hover:bg-white hover:text-black transition"
+                >
+                  Live Demo
+                </a>
+
+              </div>
 
             </div>
-          ))}
-        </div>
 
-          <div className={`absolute ${isMobile ? "bottom-20" : "bottom-10"}`}>
-            <a href={activeProject?.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-block px-6 py-3 font-semibold rounded-lg bg-white text-black hover:bg-gray-200 transition-all"
-            aria-label={`view${activeProject?.title}`}>View Project</a>
-          </div>
+          </motion.div>
+
+        ))}
+
       </div>
 
     </section>

@@ -12,7 +12,7 @@ const socials = [
     href: "https://www.linkedin.com/in/nitik-kumar-sahay-dev/",
   },
   { Icon: FaGithub, label: "GitHub", href: "https://github.com/nitiks3113" },
-  { Icon: FaInstagram, label: "Instagram", href: "www.google.com" },
+  { Icon: FaInstagram, label: "Instagram", href: "https://www.instagram.com/nks.social3113?igsh=bXBxZHd3bGZ5c2g1" },
 ];
 
 const glowVariants = {
