@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
 import ParticlesBackground from "./../components/ParticlesBackground";
-import { hover, motion, scale } from "framer-motion";
+import { motion } from "framer-motion";
 import { FaGithub, FaLinkedin, FaInstagram } from "react-icons/fa";
-import { filter } from "framer-motion/client";
 import avatar from "../assets/avatar.png";
 
 const socials = [
@@ -12,11 +11,15 @@ const socials = [
     href: "https://www.linkedin.com/in/nitik-kumar-sahay-dev/",
   },
   { Icon: FaGithub, label: "GitHub", href: "https://github.com/nitiks3113" },
-  { Icon: FaInstagram, label: "Instagram", href: "https://www.instagram.com/nks.social3113?igsh=bXBxZHd3bGZ5c2g1" },
+  {
+    Icon: FaInstagram,
+    label: "Instagram",
+    href: "https://www.instagram.com/nks.social3113?igsh=bXBxZHd3bGZ5c2g1",
+  },
 ];
 
 const glowVariants = {
-  initial: { scale: 1, y: 0, filter: "drom-shadow(0 0 0 rgba(0, 0, 0, 0)" },
+  initial: { scale: 1, y: 0, filter: "drop-shadow(0 0 0 rgba(0,0,0,0))" },
   hover: {
     scale: 1.2,
     y: -3,
@@ -58,28 +61,29 @@ export default function Home() {
       className="w-full h-screen relative bg-black overflow-hidden"
     >
       <ParticlesBackground />
+
       <div className="absolute inset-0">
         <div
           className="absolute -top-32 -left-32
-      w-[70vw] sm:w-[500vw] md:w-[40vw]
-      h-[70vw] sm: h-[50vw] md:h-[40vw]
+      w-[70vw] sm:w-[50vw] md:w-[40vw]
+      h-[70vw] sm:h-[50vw] md:h-[40vw]
       max-w-[500px] max-h-[500px]
       rounded-full
       bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2]
       opacity-30 sm:opacity-20 md:opacity-10
-      blur-[100px] sm:blue-[130px] md:blue-[150px]
+      blur-[100px] sm:blur-[130px] md:blur-[150px]
       animate-pulse"
         ></div>
 
         <div
           className="absolute bottom-0 right-0
-      w-[70vw] sm:w-[500vw] md:w-[40vw]
-      h-[70vw] sm: h-[50vw] md:h-[40vw]
+      w-[70vw] sm:w-[50vw] md:w-[40vw]
+      h-[70vw] sm:h-[50vw] md:h-[40vw]
       max-w-[500px] max-h-[500px]
       rounded-full
       bg-gradient-to-r from-[#302b63] via-[#00bf8f] to-[#1cd8d2]
       opacity-30 sm:opacity-20 md:opacity-10
-      blur-[100px] sm:blue-[130px] md:blue-[150px]
+      blur-[100px] sm:blur-[130px] md:blur-[150px]
       animate-pulse delay-500"
         ></div>
       </div>
@@ -88,7 +92,7 @@ export default function Home() {
         <div className="flex flex-col justify-center h-full text-center lg:text-left relative">
           <div className="w-full lg:pr-24 mx-auto max-w-[48rem]">
             <motion.div
-              className="mb-3 text-xl sm:text-2xl md:text-3xl lg: text-4xl font-semibold text-white tracking-wide min-h-[1.6em]"
+              className="mb-3 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white tracking-wide min-h-[1.6em]"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -112,13 +116,17 @@ export default function Home() {
                 Nitik Kumar Sahay
               </span>
             </motion.h1>
+
             <motion.p
               className="mt-6 text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto lg:mx-0"
               initial={{ opacity: 1, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
             >
-              I’m a Software Engineer and Java Full-Stack Developer passionate about building scalable web applications using Java, Spring Boot, and modern technologies, with a strong focus on clean code and backend development.
+              I’m a Software Engineer and Java Full-Stack Developer passionate
+              about building scalable web applications using Java, Spring Boot,
+              and modern technologies, with a strong focus on clean code and
+              backend development.
             </motion.p>
 
             <motion.div
@@ -129,20 +137,21 @@ export default function Home() {
             >
               <a
                 href="#projects"
-                className="px-6 py-3 rounded-full font-medium text-lg text-white bg-gradient-to-r from-[#1cd8d2] via-[#00bf] to-[#302b63] shadow-lg hover:scale-105 transition-all"
+                className="px-6 py-3 rounded-full font-medium text-lg text-white bg-gradient-to-r from-[#1cd8d2] via-[#00bf8f] to-[#302b63] shadow-lg hover:scale-105 transition-all"
               >
                 View My Work
               </a>
+
               <a
-                href="/public/Nitik_Resume_Full_Stack.pdf"
+                href="/Nitik_Resume_Full_Stack.pdf"
                 download
-                className="px-6 py-3 rounded-full text-lg font-medium text-black bg-white hover:by-gray-200 shadow-lg hover:scale-105 transition-all"
+                className="px-6 py-3 rounded-full text-lg font-medium text-black bg-white hover:bg-gray-200 shadow-lg hover:scale-105 transition-all"
               >
                 My Resume
               </a>
             </motion.div>
 
-            <div className="mt-10 flex - gap-5 text-2xl md:text-3xl justify-center lg:justify-start">
+            <div className="mt-10 flex gap-5 text-2xl md:text-3xl justify-center lg:justify-start">
               {socials.map(({ Icon, label, href }) => (
                 <motion.a
                   href={href}
@@ -177,6 +186,7 @@ export default function Home() {
                 "radial-gradient(circle at center, rgba(28,216,210,0.8) 0%, rgba(0,191,143,0.6) 40%, rgba(48,43,99,0.35) 65%, transparent 80%)",
             }}
           />
+
           <motion.img
             src={avatar}
             alt="Nitik Kumar Sahay"
