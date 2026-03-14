@@ -1,6 +1,7 @@
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import ParticlesBackground from "../components/ParticlesBackground";
+import contactBg from "../assets/contact.png";
 
 const SERVICE_ID = import.meta.env.VITE_SERVICE_ID;
 const TEMPLATE_ID = import.meta.env.VITE_TEMPLATE_ID;
@@ -86,7 +87,7 @@ export default function Contact() {
 
       {/* Background Image (Desktop Only) */}
       <img
-        src="/src/assets/contact.png"
+        src={contactBg}
         alt="contact background"
         className="hidden md:block absolute top-0 left-0 w-full h-full object-cover z-0"
       />
